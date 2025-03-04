@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Convex hulk</title>
+  <script src="lib/p5.js"></script>
+  <script type="application/javascript"
+    src="//cdn.rawgit.com/Alorel/console-log-html/master/console-log-html.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/path-data-polyfill@1.0.6/path-data-polyfill.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/earcut@3.0.1/dist/earcut.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3-polygon@3.0.1/dist/d3-polygon.min.js"></script>
+  <script src="glsl/polygonStrokeShader.js"></script>
+  <script src="js/polygon.class.js?v4as"></script>
+  <script src="js/ui.class.js?v4"></script>
+  <script src="js/setup-base.js"></script>
+  <script src="js/draw-base.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="css/console.css">
+  <meta charset="utf-8" />
+</head>
+
+<body>
+  <div
+    style="position: absolute; height: 33vh; width: calc(50vw - 4rem); padding: 1rem; left: calc(50vw + 1rem); top: calc(33vh - 2em); overflow: auto;">
+    <p>In <a href="/wiki/Geometry" title="Geometry">geometry</a>, the <b>convex hull</b>, <b>convex envelope</b> or <b>convex closure</b><sup id="cite_ref-1" class="reference"><a href="#cite_note-1"><span class="cite-bracket">[</span>1<span class="cite-bracket">]</span></a></sup> of a shape is the smallest <a href="/wiki/Convex_set" title="Convex set">convex set</a> that contains it. The convex hull may be defined either as the intersection of all convex sets containing a given subset of a <a href="/wiki/Euclidean_space" title="Euclidean space">Euclidean space</a>, or equivalently as the set of all <a href="/wiki/Convex_combination" title="Convex combination">convex combinations</a> of points in the subset. For a <a href="/wiki/Bounded_set" title="Bounded set">bounded</a> subset of the plane, the convex hull may be visualized as the shape enclosed by a rubber band stretched around the subset.
+    </p>
+    <a href="https://en.wikipedia.org/wiki/Convex_hull">https://en.wikipedia.org/wiki/Convex_hull</a>
+  </div>
+  <main>
+  </main>
+  <ul id="myULContainer"></ul> <!-- I will hold the log messages -->
+</body>
+<script> 
+ConsoleLogHTML.connect(document.getElementById("myULContainer")); // Redirect log messages 
+//ConsoleLogHTML.disconnect(); // Stop redirecting 
+var myULContainer = document.getElementById("myULContainer");
+myULContainer.scrollTop = myULContainer.scrollHeight;
+var observer = new MutationObserver(function() {
+  myULContainer.scrollTop = myULContainer.scrollHeight;
+});
+observer.observe(myULContainer, { childList: true });
+</script>
+<script src="sketch.js?rndstr=<%= getRandomStr() %>"></script>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>From polygons to bodies?</title>
+  <script src="lib/p5.js"></script>
+  <script type="application/javascript"
+    src="//cdn.rawgit.com/Alorel/console-log-html/master/console-log-html.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/path-data-polyfill@1.0.6/path-data-polyfill.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/poly-decomp@0.2.1/build/decomp.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/earcut@3.0.1/dist/earcut.min.js"></script>
+  <script src="glsl/polygonStrokeShader.js"></script>
+  <script src="js/polygon.class.js?22dee"></script>
+  <script src="js/logic.class.js?utu"></script>
+  <script src="js/ui.class.js?b456"></script>
+  <script src="js/setup-base.js"></script>
+  <script src="js/draw-base.js"></script>
+  <script src="js/testing-box.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="css/console.css">
+  <meta charset="utf-8" />
+</head>
+
+<body>
+  <div
+    style="position: absolute; height: 33vh; width: calc(50vw - 4rem); padding: 1rem; left: calc(50vw + 1rem); top: calc(33vh - 2em); overflow: auto;">
+    <p>A <b>closed polygonal chain</b> is one in which the first vertex coincides with the last one, or, alternatively,
+      the first and the last vertices are also connected by a line segment.<sup id="cite_ref-2" class="reference"><a
+          href="#cite_note-2"><span class="cite-bracket">[</span>1<span class="cite-bracket">]</span></a></sup>
+      A simple closed polygonal chain in <a href="/wiki/Plane_(geometry)" class="mw-redirect"
+        title="Plane (geometry)">the plane</a> is the boundary of a <a href="/wiki/Simple_polygon"
+        title="Simple polygon">simple polygon</a>. Often the term "<a href="/wiki/Polygon" title="Polygon">polygon</a>"
+      is used in the meaning of "closed polygonal chain", but in some cases it is important to draw a distinction
+      between a <a href="/wiki/Polygonal_area" class="mw-redirect" title="Polygonal area">polygonal area</a> and a
+      polygonal chain. A <a href="/wiki/Space_curve" class="mw-redirect" title="Space curve">space</a> closed polygonal
+      chain is also known as a <a href="/wiki/Skew_polygon" title="Skew polygon">skew "polygon"</a>.
+    </p>
+    <a href="https://en.wikipedia.org/wiki/Polygonal_chain#Closed">https://en.wikipedia.org/wiki/Polygonal_chain#Closed</a>
+  </div>
+  <main>
+  </main>
+  <ul id="myULContainer"></ul> <!-- I will hold the log messages -->
+</body>
+<script> 
+  ConsoleLogHTML.connect(document.getElementById("myULContainer")); // Redirect log messages 
+  //ConsoleLogHTML.disconnect(); // Stop redirecting 
+  var myULContainer = document.getElementById("myULContainer");
+  myULContainer.scrollTop = myULContainer.scrollHeight;
+  var observer = new MutationObserver(function() {
+    myULContainer.scrollTop = myULContainer.scrollHeight;
+  });
+  observer.observe(myULContainer, { childList: true });
+</script>
+<script src="sketch.js?asda12"></script>
+
+</html>

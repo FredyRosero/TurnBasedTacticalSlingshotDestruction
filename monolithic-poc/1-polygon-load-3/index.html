@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>How the point do I load polygons?</title>
+  <script src="lib/p5.js"></script>
+  <script type="application/javascript"
+    src="//cdn.rawgit.com/Alorel/console-log-html/master/console-log-html.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/path-data-polyfill@1.0.6/path-data-polyfill.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/earcut@3.0.1/dist/earcut.min.js"></script>
+  <script src="glsl/polygonStrokeShader.js"></script>
+  <script src="js/polygon.class.js?v4as"></script>
+  <script src="js/ui.class.js?v4"></script>
+  <script src="js/setup-base.js"></script>
+  <script src="js/draw-base.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="css/console.css">
+  <meta charset="utf-8" />
+</head>
+
+<body>
+  <div
+    style="position: absolute; height: 33vh; width: calc(50vw - 4rem); padding: 1rem; left: calc(50vw + 1rem); top: calc(33vh - 2em); overflow: auto;">
+    <p>In <a href="/wiki/Geometry" title="Geometry">geometry</a>, the <b>two ears theorem</b> states that every <a href="/wiki/Simple_polygon" title="Simple polygon">simple polygon</a> with more than three vertices has at least two <a href="/wiki/Ear_(mathematics)" class="mw-redirect" title="Ear (mathematics)">ears</a>, vertices that can be removed from the polygon without introducing any crossings. The two ears theorem is equivalent to the existence of <a href="/wiki/Polygon_triangulation" title="Polygon triangulation">polygon triangulations</a>. It is frequently attributed to Gary H. Meisters, but was proved earlier by <a href="/wiki/Max_Dehn" title="Max Dehn">Max Dehn</a>.
+    </p>
+    <a href="https://en.wikipedia.org/wiki/Two_ears_theorem">https://en.wikipedia.org/wiki/Two_ears_theorem</a>
+  </div>
+  <main>
+  </main>
+  <ul id="myULContainer"></ul> <!-- I will hold the log messages -->
+</body>
+<script> 
+ConsoleLogHTML.connect(document.getElementById("myULContainer")); // Redirect log messages 
+//ConsoleLogHTML.disconnect(); // Stop redirecting 
+var myULContainer = document.getElementById("myULContainer");
+myULContainer.scrollTop = myULContainer.scrollHeight;
+var observer = new MutationObserver(function() {
+  myULContainer.scrollTop = myULContainer.scrollHeight;
+});
+observer.observe(myULContainer, { childList: true });
+</script>
+<script src="sketch.js?rndstr=<%= getRandomStr() %>"></script>
+
+</html>

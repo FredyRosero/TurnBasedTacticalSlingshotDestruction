@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Between the shaders</title>
+  <script src="lib/p5.js"></script>
+  <script type="application/javascript" src="//cdn.rawgit.com/Alorel/console-log-html/master/console-log-html.min.js"></script>
+  <script src="glsl/polygonStrokeShader.js"></script>
+  <script src="js/ui.class.js?v1"></script>
+  <script src="js/setup-base.js"></script>
+  <script src="js/draw-base.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="css/console.css">
+</head>
+
+<body>
+  <main>
+  </main>
+  <ul id="myULContainer"></ul> <!-- I will hold the log messages -->
+</body>
+<script> 
+  ConsoleLogHTML.connect(document.getElementById("myULContainer")); // Redirect log messages 
+  //ConsoleLogHTML.disconnect(); // Stop redirecting 
+  var myULContainer = document.getElementById("myULContainer");
+  myULContainer.scrollTop = myULContainer.scrollHeight;
+  var observer = new MutationObserver(function() {
+    myULContainer.scrollTop = myULContainer.scrollHeight;
+  });
+  observer.observe(myULContainer, { childList: true });
+</script>
+<script src="sketch.js"></script>
+
+</html>

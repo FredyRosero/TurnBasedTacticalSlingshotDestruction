@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>How the point do I load polygons?</title>
+  <script src="js/p5.js"></script>
+  <script type="application/javascript"
+    src="//cdn.rawgit.com/Alorel/console-log-html/master/console-log-html.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/path-data-polyfill@1.0.6/path-data-polyfill.min.js"></script>
+  <script src="js/polygon.class.js?v2"></script>
+  <script src="js/ui.class.js"></script>
+  <script src="js/setup-base.js"></script>
+  <script src="js/draw-base.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="css/console.css">
+  <meta charset="utf-8" />
+</head>
+
+<body>
+  <div
+    style="position: absolute; height: 33vh; width: calc(50vw - 4rem); padding: 1rem; left: calc(50vw + 1rem); top: calc(33vh - 2em); overflow: auto;">
+    <p>In <a href="/wiki/Geometry" title="Geometry">geometry</a>, a <b>polygonal chain</b><sup id="cite_ref-Names_1-0" class="reference"><a href="#cite_note-Names-1"><span class="cite-bracket">[</span>a<span class="cite-bracket">]</span></a></sup> is a connected series of <a href="/wiki/Line_segment" title="Line segment">line segments</a>. More formally, a polygonal chain <span class="nowrap">⁠<span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle P}">
+      <semantics>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mstyle displaystyle="true" scriptlevel="0">
+            <mi>P</mi>
+          </mstyle>
+        </mrow>
+        <annotation encoding="application/x-tex">{\displaystyle P}</annotation>
+      </semantics>
+    </math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/b4dc73bf40314945ff376bd363916a738548d40a" class="mwe-math-fallback-image-inline mw-invert skin-invert" aria-hidden="true" style="vertical-align: -0.338ex; width:1.745ex; height:2.176ex;" alt="{\displaystyle P}"></span>⁠</span> is a <a href="/wiki/Curve" title="Curve">curve</a> specified by a <a href="/wiki/Sequence" title="Sequence">sequence</a> of points <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle (A_{1},A_{2},\dots ,A_{n})}">
+      <semantics>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mstyle displaystyle="true" scriptlevel="0">
+            <mo stretchy="false">(</mo>
+            <msub>
+              <mi>A</mi>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mn>1</mn>
+              </mrow>
+            </msub>
+            <mo>,</mo>
+            <msub>
+              <mi>A</mi>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mn>2</mn>
+              </mrow>
+            </msub>
+            <mo>,</mo>
+            <mo>…<!-- … --></mo>
+            <mo>,</mo>
+            <msub>
+              <mi>A</mi>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mi>n</mi>
+              </mrow>
+            </msub>
+            <mo stretchy="false">)</mo>
+          </mstyle>
+        </mrow>
+        <annotation encoding="application/x-tex">{\displaystyle (A_{1},A_{2},\dots ,A_{n})}</annotation>
+      </semantics>
+    </math></span><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/7b5661f3278d5f9bdde12155683926e08ac5893e" class="mwe-math-fallback-image-inline mw-invert skin-invert" aria-hidden="true" style="vertical-align: -0.838ex; width:16.578ex; height:2.843ex;" alt="{\displaystyle (A_{1},A_{2},\dots ,A_{n})}"></span> called its <a href="/wiki/Vertex_(geometry)" title="Vertex (geometry)">vertices</a>. The curve itself consists of the line segments connecting the consecutive vertices.
+    </p>
+    <p>A <b>closed polygonal chain</b> is one in which the first vertex coincides with the last one, or, alternatively,
+      the first and the last vertices are also connected by a line segment.<sup id="cite_ref-2" class="reference"><a
+          href="#cite_note-2"><span class="cite-bracket">[</span>1<span class="cite-bracket">]</span></a></sup>
+      A simple closed polygonal chain in <a href="/wiki/Plane_(geometry)" class="mw-redirect"
+        title="Plane (geometry)">the plane</a> is the boundary of a <a href="/wiki/Simple_polygon"
+        title="Simple polygon">simple polygon</a>. Often the term "<a href="/wiki/Polygon" title="Polygon">polygon</a>"
+      is used in the meaning of "closed polygonal chain", but in some cases it is important to draw a distinction
+      between a <a href="/wiki/Polygonal_area" class="mw-redirect" title="Polygonal area">polygonal area</a> and a
+      polygonal chain. A <a href="/wiki/Space_curve" class="mw-redirect" title="Space curve">space</a> closed polygonal
+      chain is also known as a <a href="/wiki/Skew_polygon" title="Skew polygon">skew "polygon"</a>.
+    </p>
+    <a href="https://en.wikipedia.org/wiki/Polygonal_chain#Closed">https://en.wikipedia.org/wiki/Polygonal_chain#Closed</a>
+  </div>
+  <main>
+  </main>
+  <ul id="myULContainer"></ul> <!-- I will hold the log messages -->
+</body>
+<script> 
+ConsoleLogHTML.connect(document.getElementById("myULContainer")); // Redirect log messages 
+//ConsoleLogHTML.disconnect(); // Stop redirecting 
+var myULContainer = document.getElementById("myULContainer");
+myULContainer.scrollTop = myULContainer.scrollHeight;
+var observer = new MutationObserver(function() {
+  myULContainer.scrollTop = myULContainer.scrollHeight;
+});
+observer.observe(myULContainer, { childList: true });
+</script>
+<script src="sketch.js?rndstr=<%= getRandomStr() %>"></script>
+
+</html>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="600"
+   height="600"
+   viewBox="0 0 600 600"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   sodipodi:docname="terrain.1.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="0.91936025"
+     inkscape:cx="153.36752"
+     inkscape:cy="253.4371"
+     inkscape:window-width="2100"
+     inkscape:window-height="1246"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="path2"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:90;paint-order:markers stroke fill;stroke-dasharray:none"
+       inkscape:transform-center-x="0.19891884"
+       inkscape:transform-center-y="3.7356033"
+       d="M 266.3592,297.55305 282.00964,251.83476 330.32658,252.59148 344.53765,298.77745 305.00363,326.56524 Z" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:90;paint-order:markers stroke fill;stroke-dasharray:none"
+       d="M 68.837445,312.59884 106.07623,238.81896 155.23141,308.49995 Z"
+       id="path1" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:90;paint-order:markers stroke fill;stroke-dasharray:none"
+       d="M 367.29056,256.99859 427.11477,276.1213 464.09701,238.50742 476.06185,298.33163 397.74652,318.9104 Z"
+       id="path3-2"
+       sodipodi:nodetypes="cccccc" />
+    <path
+       id="rect1"
+       style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:90;paint-order:markers stroke fill"
+       d="M 173.5612,250.92287 H 233.24342 V 313.2493 H 173.5612 Z" />
+  </g>
+</svg>

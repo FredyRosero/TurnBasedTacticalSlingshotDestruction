@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>How the point do I load polygons?</title>
+  <script src="lib/p5.js"></script>
+  <script type="application/javascript"
+    src="//cdn.rawgit.com/Alorel/console-log-html/master/console-log-html.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/path-data-polyfill@1.0.6/path-data-polyfill.min.js"></script>
+  <script src="glsl/polygonStrokeShader.js"></script>
+  <script src="js/polygon.class.js?asdq"></script>
+  <script src="js/ui.class.js"></script>
+  <script src="js/setup-base.js"></script>
+  <script src="js/draw-base.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="css/console.css">
+  <meta charset="utf-8" />
+</head>
+
+<body>
+  <div
+    style="position: absolute; height: 33vh; width: calc(50vw - 4rem); padding: 1rem; left: calc(50vw + 1rem); top: calc(33vh - 2em); overflow: auto;">
+    <p>A <b>triangle fan</b> is a <a href="/wiki/Geometric_primitive" title="Geometric primitive">primitive</a> in <a href="/wiki/3D_computer_graphics" title="3D computer graphics">3D computer graphics</a> that saves on storage and processing time. It describes a set of connected <a href="/wiki/Triangle" title="Triangle">triangles</a> that share one central <a href="/wiki/Vertex_(geometry)" title="Vertex (geometry)">vertex</a> (unlike the <a href="/wiki/Triangle_strip" title="Triangle strip">triangle strip</a> that connects the next vertex point to the last two used vertices to form a triangle), possibly within a <a href="/wiki/Triangle_mesh" title="Triangle mesh">triangle mesh</a>. If <span class="texhtml mvar" style="font-style:italic;">N</span> is the number of triangles in the fan, the number of vertices describing it is <span class="texhtml"><i>N</i> + 2</span>. This is a considerable improvement over the <span class="texhtml">3<i>N</i></span> vertices that are necessary to describe the triangles separately. The <a href="/wiki/Graphics_pipeline" title="Graphics pipeline">graphics pipeline</a> can take advantage by only performing the viewing transformations and lighting calculations once per vertex. While triangle fans were useful back then with <a href="/wiki/Flat_shading" class="mw-redirect" title="Flat shading">flat shading</a> or <a href="/wiki/Gouraud_shading" title="Gouraud shading">Gouraud shading</a> objects without textures and limited RAM, today they cost performance with <a href="/wiki/Fragment_shaders" class="mw-redirect" title="Fragment shaders">fragment shaders</a> and multisampling rasterization.<sup id="cite_ref-1" class="reference"><a href="#cite_note-1"><span class="cite-bracket">[</span>1<span class="cite-bracket">]</span></a></sup> For this reason, Triangle fans are deprecated in <a href="/wiki/Direct3D10" class="mw-redirect" title="Direct3D10">Direct3D10</a> and later.<sup id="cite_ref-2" class="reference"><a href="#cite_note-2"><span class="cite-bracket">[</span>2<span class="cite-bracket">]</span></a></sup>
+    </p>
+    <a href="https://en.wikipedia.org/wiki/Triangle_fan">https://en.wikipedia.org/wiki/Triangle_fan</a>
+  </div>
+  <main>
+  </main>
+  <ul id="myULContainer"></ul> <!-- I will hold the log messages -->
+</body>
+<script> 
+ConsoleLogHTML.connect(document.getElementById("myULContainer")); // Redirect log messages 
+//ConsoleLogHTML.disconnect(); // Stop redirecting 
+var myULContainer = document.getElementById("myULContainer");
+myULContainer.scrollTop = myULContainer.scrollHeight;
+var observer = new MutationObserver(function() {
+  myULContainer.scrollTop = myULContainer.scrollHeight;
+});
+observer.observe(myULContainer, { childList: true });
+</script>
+<script src="sketch.js?rndstr=<%= getRandomStr() %>"></script>
+
+</html>
