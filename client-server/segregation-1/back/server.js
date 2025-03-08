@@ -1,13 +1,12 @@
-const express = require('express');
-const http = require('http');
-const socketIo = require('socket.io');
-const Matter = require('matter-js');
+import express from 'express';
+import http from 'http';
+import { Server } from 'socket.io';
+import Logic from './logic.class.js';
 
-const Logic = require('./logic.class.js');
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server, {
-  cors: { origin: '*' } // Habilita CORS para que el front desde GitHub Pages se pueda conectar
+const io = new Server(server, {
+  cors: { origin: '*' }
 });
 
 let logic = new Logic();

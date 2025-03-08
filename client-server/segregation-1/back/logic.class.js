@@ -1,8 +1,10 @@
-const { extractPolygonsFromSVG, PolygonBackend } = require('./polygon-backend.class');
-const Matter = require('matter-js');
-const path = require('path');
-const fs = require('fs');
-const earcut = require('earcut');
+import { extractPolygonsFromSVG, PolygonBackend } from './polygon-backend.class.js';
+import Matter from 'matter-js';
+import path from 'path';
+import fs from 'fs';
+import earcut from 'earcut';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
 const Engine = Matter.Engine,
       World = Matter.World,
@@ -38,6 +40,8 @@ class Logic {
     };
 
     // Define una ruta y lee el SVG
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
     const svgPath = path.join(__dirname, 'assets', 'Assorted_polygons.svg');
     const svgContent = fs.readFileSync(svgPath, 'utf8').split('\n');
 
@@ -216,4 +220,4 @@ function polygonToBody(polygon, isStatic = false) {
   return body;
 }
 
-module.exports = Logic;
+export default Logic;

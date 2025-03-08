@@ -1,11 +1,11 @@
-const { JSDOM } = require("jsdom");
-const {parseSVG, makeAbsolute} = require('svg-path-parser');
-const ClipperLib = require('clipper-lib');
-const earcut = require('earcut');
+import { JSDOM } from 'jsdom';
+import svgPathParser from 'svg-path-parser';
+const { parseSVG } = svgPathParser;
+import ClipperLib from 'clipper-lib';
+import earcut from 'earcut';
 const TWO_PI = 2 * Math.PI;
 const cos = Math.cos;
 const sin = Math.sin;
-
 
 class PolygonBackend {
 
@@ -232,9 +232,4 @@ function getPathData(path) {
 
 }
 
-module.exports = {
-  PolygonBackend,
-  extractPolygonsFromSVG,
-  createVector,
-  parsePath
-};
+export { PolygonBackend, extractPolygonsFromSVG, createVector, parsePath };
