@@ -12,7 +12,7 @@
   "description": "",
   "dependencies": {
     "clipper-lib": "^6.4.2",
-    "earcut": "^3.0.1",
+    "earcut": "^2.2.2",
     "express": "^4.21.2",
     "jsdom": "^26.0.0",
     "matter-js": "^0.20.0",
