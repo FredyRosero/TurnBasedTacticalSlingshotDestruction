@@ -19,7 +19,7 @@ class PolygonBackend {
       polygon.points.forEach(p => {
         coords.push(p.x, p.y);
       });
-      let indexTriangledPoints = earcut.default(coords);
+      let indexTriangledPoints = earcut(coords);
       for (let i = 0; i < indexTriangledPoints.length; i += 3) {
         let idx0 = indexTriangledPoints[i];
         let idx1 = indexTriangledPoints[i + 1];
