@@ -1,13 +1,28 @@
 import express from 'express';
 import http from 'http';
+import https from 'https'; 
 import { Server } from 'socket.io';
+import fs from 'fs';
 import Logic from './logic.class.js';
 
 const app = express();
-const server = http.createServer(app);
-const io = new Server(server, {
+
+const ssl_path = process.env.SSL_PATH??'/etc/ssl';
+console.log('ssl_path:', ssl_path);
+const options = {
+  key: fs.readFileSync(`${ssl_path}/private/selfsigned.key`),
+  cert: fs.readFileSync(`${ssl_path}/certs/selfsigned.crt`)
+};
+
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(options, app);
+
+const io = new Server({
   cors: { origin: '*' }
 });
+
+io.attach(httpServer);
+io.attach(httpsServer);
 
 let logic = new Logic();
 
@@ -56,7 +71,13 @@ io.on('connection', (socket) => {
   });
 });
 
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, '0.0.0.0', () => {
-  console.log(`Servidor corriendo en el puerto ${PORT}`);
+const HTTP_PORT = process.env.HTTP_PORT || 3000;
+const HTTPS_PORT = process.env.HTTPS_PORT || 3443;
+
+httpServer.listen(HTTP_PORT, '0.0.0.0', () => {
+  console.log(`Servidor HTTP corriendo en el puerto ${HTTP_PORT}`);
+});
+
+httpsServer.listen(HTTPS_PORT, '0.0.0.0', () => {
+  console.log(`Servidor HTTPS seguro corriendo en el puerto ${HTTPS_PORT}`);
 });
