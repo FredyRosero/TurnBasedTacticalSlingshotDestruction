@@ -62,6 +62,7 @@ class UI {
    * Conviert polygonsBackend en un arreglo de objetos Polygon y los guarda en el atributo data.polygons
    */
   setPolygons(polygonsBackend) {
+    if(!polygonsBackend) return;
     this.data.polygons = polygonsBackend.map(polygonBackend => {
       let vertices = polygonBackend.points.map(vertex => createVector(vertex.x, vertex.y));
       let polygon = new Polygon(vertices,polygonBackend.z);      

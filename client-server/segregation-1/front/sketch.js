@@ -40,7 +40,7 @@ function setup() {
 }
 
 function draw() {  
-  if (simulationData && simulationData.length > 0) ui.setData(simulationData);
+  ui.setData(simulationData);
   drawBase();    
   drawDebug();  
   ui.draw();
