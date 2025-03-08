@@ -1,0 +1,24 @@
+{
+  "name": "backend-game-server",
+  "version": "1.0.0",
+  "main": "logic.class.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "clipper-lib": "^6.4.2",
+    "earcut": "^3.0.1",
+    "express": "^4.21.2",
+    "jsdom": "^26.0.0",
+    "matter-js": "^0.20.0",
+    "path-data-polyfill": "^1.0.6",
+    "socket.io": "^4.8.1",
+    "svg-path-parser": "^1.1.0",
+    "xmldom": "^0.6.0"
+  }
+}

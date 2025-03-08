@@ -1,11 +1,31 @@
 let ui;
-let logic;
 let gl;
+
+let simulationData = []; // Aquí se almacenará el estado recibido del servidor
+
+const socket = io('http://localhost:3000'); // O la URL de tu servidor en EC2
+
+socket.on('simulationUpdate', (data) => {
+  simulationData = data;
+});
+
+// Si necesitas enviar comandos al servidor:
+function sendAddPolygon(data) {
+  socket.emit('addPolygon', data);
+}
+
+function sendLaunchBomb(data) {
+  socket.emit('launchBomb', data);
+}
+
+function sendDoExplosion(data) {
+  socket.emit('doExplosion', data);
+}
+
+
 function preload(){  
   ui = new UI();
-  logic = new Logic();
   ui.preload();
-  terrainSVG = loadStrings('assets/Assorted_polygons.svg');
   Polygon.preload();
 }
 
@@ -19,28 +39,10 @@ function setup() {
   gl.enable(gl.BLEND);
   gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
   ui.setup();
-  if (!terrainSVG || terrainSVG.length === 0) {
-    console.error("El archivo SVG no se cargó correctamente");
-    return;
-  }
-  let terrainPolygons = extractPolygonsFromSVG(terrainSVG);
-  terrainPolygons.forEach(polygon => {
-    polygon.scale(1.5,1.5);
-    polygon.move(100-width/2,200-height/2);
-  });   
-  logic.setTerrain(Polygon.triangulatePolygons(terrainPolygons));
 }
 
 function draw() {  
-  //if (frameCount >= 60) return; // limit runtime
-  logic.update();  
-  
-  let data = {
-    polygons: logic.getPolygonsFromBodies()
-  };
-
-  ui.setData(data);
-  
+  ui.setData(simulationData);
   drawBase();    
   drawDebug();  
   ui.draw();
@@ -94,7 +96,10 @@ function keyPressed() {
       false,
       false
     );
-    logic.addBodyFromPolygon(box);
+    //logic.addBodyFromPolygon(box);
+    sendAddPolygon({
+      polygon: box
+    }) 
   }
 
   if (key === ' ') {
@@ -107,7 +112,13 @@ function keyPressed() {
 
 function keyReleased() {
   if (key === ' ' && bombStartPos !== null) {
-    logic.launchBomb(bombStartPos.x, bombStartPos.y, vector, intensity);
+    //logic.launchBomb(bombStartPos.x, bombStartPos.y, vector, intensity);
+    sendLaunchBomb({
+      x: bombStartPos.x,
+      y: bombStartPos.y,
+      vector: vector,
+      intensity: intensity
+    });
     bombStartPos = null;
   }
 }
@@ -125,7 +136,12 @@ function mousePressed() {
   ui.mousePressed();
   let x = ui.getRelativeMouseX();
   let y = ui.getRelativeMouseY();
-  logic.doExplosion(x, y, 100);
+  //logic.doExplosion(x, y, 100);}
+  sendDoExplosion({
+    x: x,
+    y: y,
+    radius: 100
+  });
 }
 
 function mouseReleased() {

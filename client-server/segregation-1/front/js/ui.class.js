@@ -50,15 +50,23 @@ class UI {
   }
 
   setData(data) {
-    this.data = data;
+    this.setPolygons(data.polygons);
   }
 
   getData(){
     return this.data;
   }
 
-  setPolygons(polygons) {
-    this.data.polygons = polygons;
+
+  /**
+   * Conviert polygonsBackend en un arreglo de objetos Polygon y los guarda en el atributo data.polygons
+   */
+  setPolygons(polygonsBackend) {
+    this.data.polygons = polygonsBackend.map(polygonBackend => {
+      let vertices = polygonBackend.points.map(vertex => createVector(vertex.x, vertex.y));
+      let polygon = new Polygon(vertices,polygonBackend.z);      
+      return polygon;
+    });
   }
 
   getPolygons() {
