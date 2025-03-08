@@ -1,7 +1,11 @@
 # Game server backend
 
-## Run
+## Install
 ```bash
 npm install
+```
+
+## Run
+```bash
 npm start
 ```
