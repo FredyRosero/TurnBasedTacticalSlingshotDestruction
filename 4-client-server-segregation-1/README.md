@@ -1,10 +1,48 @@
+# Client-Server Segregation
+## Front-end
 
+```powershell
+python -m http.server
+```
+
+```bash
+sudo netstat -tulnp | grep :80
+sudo netstat -tulnp | grep :443
+```
+
+## Back-end
+```bash
+npm start
+```
+
+```bash
+sudo netstat -tulnp | grep :3000
+sudo netstat -tulnp | grep :3443
+```
 
 ## AWS EC2
 ### Connect to EC2
 ```bash
 ssh -i "game_backend.pem" ec2-user@ec2-3-137-188-183.us-east-2.compute.amazonaws.com
 ```
+
+### Ngix to git directory
+
+```bash
+git clone https://github.com/FredyRosero/TurnBasedTacticalSlingshotDestruction.git
+sudo chmod 711 $HOME
+sudo chmod -R o+r TurnBasedTacticalSlingshotDestruction
+sudo chown -R ec2-user:nginx TurnBasedTacticalSlingshotDestruction
+ls -al TurnBasedTacticalSlingshotDestruction
+```
+
+```bash
+sudo mv /usr/share/nginx/html /usr/share/nginx/html_backup
+sudo ln -s "$HOME/TurnBasedTacticalSlingshotDestruction/5-client-server-segregation-1/front" "/usr/share/nginx/html"
+ls -al /usr/share/nginx/html
+rm /usr/share/nginx/html
+```
+Go to <http://ec2-3-137-188-183.us-east-2.compute.amazonaws.com>
 
 ### HTTP over TLS
 ```bash
@@ -13,7 +51,12 @@ mkdir /etc/ssl/certs
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
   -keyout /etc/ssl/private/selfsigned.key \
   -out /etc/ssl/certs/selfsigned.crt
-ls /etc/ssl/*.*
+ls /etc/ssl/*/selfsigned.* -al
+sudo chmod o+r /etc/ssl/private/selfsigned.key
+sudo chmod o+r /etc/ssl/certs/selfsigned.crt
+```
+
+```bash
 SSL_PATH="/etc/ssl"
 ```
 
@@ -74,12 +117,23 @@ sudo nginx -t
 sudo systemctl reload nginx
 ```
 
-### PM2
+### P(rocess) M(anager) 2
 
 ```bash
 npm install -g pm2
 ```
 
 ```bash
-pm2 start /home/ec2-user/TurnBasedTacticalSlingshotDestruction/client-server/segregation-1/back/server.js --name backend-game-server
+pm2 start server.js --name backend-game-server
+```
+
+```bash
+pm2 list
+```
+
+```bash
+pm2 restart backend-game-server
+pm2 stop backend-game-server
+pm2 delete backend-game-server
+pm2 monit
 ```
