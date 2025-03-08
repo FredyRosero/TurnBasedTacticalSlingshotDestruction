@@ -19,6 +19,7 @@
   <script src="js/ui.class.js?b456"></script>
   <script src="js/setup-base.js"></script>
   <script src="js/draw-base.js"></script>
+  <script src="config.js"></script>
   <link rel="stylesheet" type="text/css" href="style.css">
   <link rel="stylesheet" type="text/css" href="css/console.css">
   <meta charset="utf-8" />
@@ -45,6 +46,10 @@
     myULContainer.scrollTop = myULContainer.scrollHeight;
   });
   observer.observe(myULContainer, { childList: true });
+</script>
+<script>
+  console.log("window.SERVER_URL:",window.SERVER_URL);
+  const socket = io(window.SERVER_URL);
 </script>
 <script src="sketch.js?asda12"></script>
 

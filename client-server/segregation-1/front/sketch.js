@@ -3,8 +3,6 @@ let gl;
 
 let simulationData = []; // Aquí se almacenará el estado recibido del servidor
 
-const socket = io('http://localhost:3000'); // O la URL de tu servidor en EC2
-
 socket.on('simulationUpdate', (data) => {
   simulationData = data;
 });
@@ -42,7 +40,7 @@ function setup() {
 }
 
 function draw() {  
-  ui.setData(simulationData);
+  if (simulationData && simulationData.length > 0) ui.setData(simulationData);
   drawBase();    
   drawDebug();  
   ui.draw();
