@@ -38,10 +38,19 @@ ls -al TurnBasedTacticalSlingshotDestruction
 
 ```bash
 sudo mv /usr/share/nginx/html /usr/share/nginx/html_backup
-sudo ln -s "$HOME/TurnBasedTacticalSlingshotDestruction/5-client-server-segregation-1/front" "/usr/share/nginx/html"
+sudo ln -s "$HOME/TurnBasedTacticalSlingshotDestruction" "/usr/share/nginx/html"
 ls -al /usr/share/nginx/html
 rm /usr/share/nginx/html
 ```
+
+```bash
+git pull
+rm -rf /usr/share/nginx/html
+sudo ln -s "$HOME/TurnBasedTacticalSlingshotDestruction" "/usr/share/nginx/html"
+ls -al /usr/share/nginx/html
+sudo systemctl reload nginx
+```
+
 Go to <http://ec2-3-137-188-183.us-east-2.compute.amazonaws.com>
 
 ### HTTP over TLS
