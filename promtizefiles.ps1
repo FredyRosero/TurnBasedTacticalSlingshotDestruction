@@ -23,7 +23,7 @@ if ($ArchivoSalida -ne "" -and (Test-Path $ArchivoSalida)) {
 # Obtener archivos hasta dos niveles de profundidad (requiere PowerShell 7+)
 Get-ChildItem -Path $Ruta -File -Recurse -Depth 1 | ForEach-Object {
   # Saltar el directorio "fonts" y "lib" (si existen)
-  if ($_.FullName -like "*fonts*" -or $_.FullName -like "*lib*" -or $_.FullName -like "*bkp*") { return }
+  if ($_.FullName -like "*fonts*" -or $_.FullName -like "*lib*" -or $_.FullName -like "*bkp*" -or $_.FullName -like "*node_modules*") { return }
   # Obtener la ruta del archivo relativa al directorio actual
   $RutaRelativa = $_.FullName.Substring($Ruta.Length) 
   # Escribe la línea con la marca requerida
