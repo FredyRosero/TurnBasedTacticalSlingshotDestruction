@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1200"
+   height="600"
+   viewBox="0 0 1200 600"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   sodipodi:docname="terrain.1.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="0.65008587"
+     inkscape:cx="564.5408"
+     inkscape:cy="609.1503"
+     inkscape:window-width="2100"
+     inkscape:window-height="1246"
+     inkscape:window-x="1699"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     showguides="true" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       d="M 108.59237,520.31443 120.48495,549.19528 223.04745,549.53708 V 520.31443 Z"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:90;paint-order:markers stroke fill"
+       id="path39" />
+    <path
+       d="M 223.04745,441.86325 V 407.0156 L 189.0123,399.09177 59.572841,401.26755 76.289638,441.86325 Z"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:90;paint-order:markers stroke fill"
+       id="path37" />
+    <path
+       d="M 1098.6822,520.31443 H 958.33456 V 551.99411 L 1097.5201,552.45896 Z"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:90;paint-order:markers stroke fill"
+       id="path48" />
+    <path
+       d="M 989.78183,351.10739 958.33456,378.18552 V 441.86325 H 1101.5162 L 1104.7974,351.10739 Z"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:90;paint-order:markers stroke fill"
+       id="path45" />
+    <path
+       d="M 958.33456,441.86325 V 378.18552 L 884.38144,441.86325 Z"
+       style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:90;paint-order:markers stroke fill"
+       id="path49" />
+    <path
+       d="M 827.58261,551.55661 958.33456,551.99411 V 520.31443 H 827.58261 Z"
+       style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:90;paint-order:markers stroke fill"
+       id="path40" />
+    <path
+       d="M 331.49863,441.86325 273.11581,418.66989 223.04745,407.0156 V 441.86325 Z"
+       style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:90;paint-order:markers stroke fill"
+       id="path35" />
+    <path
+       d="M 349.18417,549.95896 V 520.31443 H 223.04745 V 549.53708 Z"
+       style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:90;paint-order:markers stroke fill"
+       id="path26" />
+    <path
+       d="M 1101.5162,441.86325 H 958.33456 V 520.31443 H 1098.6822 Z"
+       style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:90;paint-order:markers stroke fill"
+       id="path47" />
+    <path
+       d="M 827.58261,520.31443 H 958.33456 V 441.86325 H 884.38144 L 862.57284,460.6406 827.58261,470.35935 Z"
+       style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:90;paint-order:markers stroke fill"
+       id="path41" />
+    <path
+       d="M 223.04745,441.86325 H 76.289638 L 108.59237,520.31443 H 223.04745 Z"
+       style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:90;paint-order:markers stroke fill"
+       id="path36" />
+    <path
+       d="M 349.18417,520.31443 V 448.88864 L 331.49863,441.86325 H 223.04745 V 520.31443 Z"
+       style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:90;paint-order:markers stroke fill"
+       id="path28" />
+    <path
+       d="M 349.18417,520.31443 H 478.39902 V 488.20505 L 416.34433,488.28513 349.78378,449.12693 349.18417,448.88864 Z"
+       style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:90;paint-order:markers stroke fill"
+       id="path29" />
+    <path
+       d="M 349.18417,549.95896 478.39902,550.3906 V 520.31443 H 349.18417 Z"
+       style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:90;paint-order:markers stroke fill"
+       id="path27" />
+    <path
+       d="M 687.60214,520.31443 V 551.08982 L 827.58261,551.55661 V 520.31443 Z"
+       style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:90;paint-order:markers stroke fill"
+       id="path20" />
+    <path
+       d="M 687.60214,487.93357 V 520.31443 H 827.58261 V 470.35935 L 764.67831,487.83396 Z"
+       style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:90;paint-order:markers stroke fill"
+       id="path18" />
+    <path
+       d="M 687.60214,520.31443 H 478.39902 V 550.3906 L 687.60214,551.08982 Z"
+       style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:90;paint-order:markers stroke fill"
+       id="path21" />
+    <path
+       d="M 687.60214,487.93357 478.39902,488.20505 V 520.31443 H 687.60214 Z"
+       style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:90;paint-order:markers stroke fill"
+       id="path19" />
+    <path
+       d="M 989.78183,351.10739 H 1104.7974 L 1108.4908,248.89255 Z"
+       style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:90;paint-order:markers stroke fill"
+       id="path44" />
+  </g>
+</svg>
