@@ -35,7 +35,8 @@ function simulationLoop() {
   logic.update();
   // Extrae la información relevante de los cuerpos para enviar al cliente.
   let data = {
-    polygons: logic.getPolygonsFromBodies()
+    polygons: logic.getPolygonsFromBodies(),
+    players: logic.getPlayersInfo()
   }
   // Envía el estado de la simulación a todos los clientes conectados
   io.emit('simulationUpdate', data);
@@ -46,6 +47,10 @@ setInterval(simulationLoop, 1000 / 30);
 
 io.on('connection', (socket) => {
   console.log('Cliente conectado:', socket.id);
+
+  socket.on('addPlayer', (data) => {
+    logic.addPlayer(data, socket.id);
+  });
   
   socket.on('addPolygon', (data) => {
     console.log('Nuevo polígono:', data);
@@ -68,6 +73,7 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     console.log('Cliente desconectado:', socket.id);
+    logic.removePlayer(socket.id);
   });
 });
 

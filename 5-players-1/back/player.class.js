@@ -1,20 +1,32 @@
+import Matter from 'matter-js';
+const { Bodies, Body, World, Query } = Matter;
+const TWO_PI = 2 * Math.PI;
+const PI = Math.PI;
+
 class Player {
-  constructor(x, y) {
-    this.width = 30;
-    this.height = 30;
+  constructor(x, y, socketId) {
+    this.socketId = socketId;
+    this.health = 100;
+    this.width = 20;
+    this.height = 20;
     this.moveSpeed = 1;
     this.moveForce = 0.01;
     this.jumpForce = 0.5;
     this.rotationSpeed = 0.05;
     this.doubleJump = false;
-    this.body = Bodies.circle(x, y, this.height/2, {
+    // Cuerpo principal (círculo)
+    this.body = Bodies.circle(x, y, this.height / 2, {
+      label: 'player-body',
       render: { fillStyle: "#FCED08" }
     });
-    this.feet = Bodies.rectangle(x, y + this.height/2 - 5, 5, 5, {
+    // Sensor para detectar "pies"
+    this.feet = Bodies.rectangle(x, y + this.height / 2 - 5, 5, 5, {
+      label: 'player-feet',
       isSensor: true,
       density: 0.8
     });
-    this.composite = Matter.Body.create({ 
+    // Composite del jugador (agrupa cuerpo y sensor)
+    this.composite = Body.create({
       parts: [this.body, this.feet],
       restitution: 0.0001,
       friction: 0.1,
@@ -22,14 +34,16 @@ class Player {
       density: 0.3,
       slop: 0.1
     });
-    Matter.Body.setCentre(this.composite, { x: 0, y: -this.height/4 }, true);
-    World.add(world, this.composite);
+    this.composite.isPlayer = true;
+    this.composite.socketId = socketId;
+    // Ajustar el centro de masa
+    Body.setCentre(this.composite, { x: 0, y: -this.height / 4 }, true);
   }
 
   walk(dir) {
     if (this.isGrounded()) {
       this.setVelocityX(dir * this.moveSpeed);
-      Matter.Body.setAngularVelocity(this.composite, 0, false);
+      Body.setAngularVelocity(this.composite, 0);
     }
   }
 
@@ -39,7 +53,7 @@ class Player {
       this.applyForce({ x: 0, y: -this.jumpForce });
     } else if (this.doubleJump) {
       this.doubleJump = false;
-      this.applyForce({ x: 0, y: -this.jumpForce/2 });
+      this.applyForce({ x: 0, y: -this.jumpForce / 2 });
     }
   }
 
@@ -48,25 +62,29 @@ class Player {
       this.applyForce({ x: dir * this.moveForce, y: 0 });
     }
   }
-  
+
   roll(dir) {
     this.setAngularVelocity(dir * this.rotationSpeed);
   }
 
   setPosition(x, y) {
-    Matter.Body.setPosition(this.composite, { x, y });
+    Body.setPosition(this.composite, { x, y });
   }
 
-  remove() {
-    Matter.World.remove(world, this.composite);
+  addToWorld(world) {
+    World.add(world, this.composite);
+  }
+
+  removeFromWorld(world) {
+    World.remove(world, this.composite);
   }
 
   applyForce(force) {
-    Matter.Body.applyForce(this.composite, this.composite.position, force);
+    Body.applyForce(this.composite, this.composite.position, force);
   }
 
   setVelocity(velocity) {
-    Matter.Body.setVelocity(this.composite, velocity);
+    Body.setVelocity(this.composite, velocity);
   }
 
   setVelocityX(velocityX) {
@@ -74,70 +92,19 @@ class Player {
   }
 
   setAngularVelocity(velocity) {
-    Matter.Body.setAngularVelocity(this.composite, velocity);
+    Body.setAngularVelocity(this.composite, velocity);
   }
 
+  // Se considera "grounded" si el ángulo del composite es cercano a 0.
   isGrounded() {
-    // Para simplificar, consideramos que está grounded si el ángulo del composite es cercano a 0
     const angle = this.composite.angle % TWO_PI;
-    return angle < PI/4 && angle > -PI/4;
+    return angle < PI / 4 && angle > -PI / 4;
   }
 
-  isOnAir() {
-    let collisions = Matter.Query.collides(this.body, terrain.bodies);
+  // En este ejemplo, la verificación de "en el aire" se realiza usando colisiones
+  isOnAir(terrainBodies = []) {
+    let collisions = Query.collides(this.body, terrainBodies);
     return collisions.length === 0;
-  }
-
-  draw() {
-    push();
-    translate(this.body.position.x, this.body.position.y);
-    // Cambia de color según si está en el suelo o en el aire
-    if (this.isGrounded()) fill(155, 0, 0);
-    else if (this.isOnAir()) fill(155, 155, 0);
-    else fill(0, 0, 155);
-    beginShape();
-    this.body.vertices.forEach(v => vertex(v.x - this.composite.position.x, v.y - this.composite.position.y));
-    endShape(CLOSE);
-    fill(0);
-    noStroke();
-    beginShape();
-    this.feet.vertices.forEach(v => vertex(v.x - this.composite.position.x, v.y - this.composite.position.y));
-    endShape(CLOSE); 
-    stroke(0, 255, 0);
-    noFill();
-    beginShape();
-    this.composite.vertices.forEach(v => vertex(v.x - this.composite.position.x, v.y - this.composite.position.y));
-    endShape(CLOSE);
-    pop();
-  }
-
-  onKeyIsPressed() {
-    if (keyIsDown(LEFT_ARROW)) {
-      player.walk(-1);
-    }
-    if (keyIsDown(RIGHT_ARROW)) {
-      player.walk(1);
-    }
-  }
-
-  keyPressed(key) {
-    if (key === 'ArrowUp') {
-      this.jump();
-    }
-    if (this.isOnAir()) {
-      if (key === 'ArrowLeft') {
-        this.glide(-1);
-      }
-      if (key === 'ArrowRight') {
-        this.glide(1);
-      }
-    }
-    if (key === 'q') {
-      this.roll(-1);
-    }
-    if (key === 'e') {
-      this.roll(1);
-    }
   }
 }
 

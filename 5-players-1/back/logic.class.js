@@ -5,10 +5,11 @@ import fs from 'fs';
 import earcut from 'earcut';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import Player from './player.class.js';
 
 const Engine = Matter.Engine,
-      World = Matter.World,
-      Bodies = Matter.Bodies;
+  World = Matter.World,
+  Bodies = Matter.Bodies;
 
 // Funciones auxiliares para reemplazar las de p5.js
 function createVector(x, y) {
@@ -39,14 +40,16 @@ class Logic {
     // Crear el engine con algunas configuraciones para rendimiento
     this.engine = Engine.create({
       enableSleeping: true,
-      positionIterations: 5, 
+      positionIterations: 5,
       velocityIterations: 3,
       constraintIterations: 2,
     });
     this.world = this.engine.world;
     this.data = {
-      bodies: []
+      bodies: [],
+      players: []
     };
+    this.players = [];
 
     this.terrainPolygons = extractPolygonsFromSVG(svgContent);
     console.log("terrainPolygons:", this.terrainPolygons);
@@ -60,7 +63,6 @@ class Logic {
   update() {
     Engine.update(this.engine);
     let currentTime = Date.now();
-    // Recorremos una copia de la lista de cuerpos
     for (let body of this.data.bodies.slice()) {
       if (body.lifespan && (currentTime - body.birthTime > body.lifespan)) {
         if (body.bomb) {
@@ -69,6 +71,20 @@ class Logic {
         this.removeBodyFromWorld(body);
       }
     }
+  }
+
+  /**
+   * returns an array of objects with the players' information
+   */
+  getPlayersInfo() {
+    return this.players.map(player => {
+      return {
+        x: player.composite.position.x,
+        y: player.composite.position.y,
+        socketId: player.socketId,
+        health: player.health
+      }
+    });
   }
 
   /**
@@ -83,14 +99,14 @@ class Logic {
   }
 
   doExplosion(x, y, r) {
-    let holeVertices = PolygonBackend.createCirclePath(x, y, 25);    
+    let holeVertices = PolygonBackend.createCirclePath(x, y, 25);
     let staticBodies = this.data.bodies.filter(b => b.isStatic);
     let nonStaticBodies = this.data.bodies.filter(b => !b.isStatic);
     // Descomponer terrenos
     let newStaticBodies = [];
     staticBodies.forEach(body => {
       let solutions = PolygonBackend.subtractPath(body.vertices, holeVertices)
-                               .filter(solutionPoints => solutionPoints.length > 2);
+        .filter(solutionPoints => solutionPoints.length > 2);
       solutions.forEach(solutionPoints => {
         let triangles = Logic.triangulateVectors(solutionPoints);
         triangles.forEach(t => {
@@ -107,21 +123,44 @@ class Logic {
       let force = createVector(diffX, diffY);
       let distance = Matter.Vector.magnitude(force);
       if (distance < r) {
-        let intensity = map(distance, 0, r, 1, 0);
+        let intensity = map(distance, 0, r, 2, 0);
         let normalizedForce = Matter.Vector.normalise(force);
         let scaledForce = Matter.Vector.mult(normalizedForce, 0.1 * intensity);
         Matter.Body.applyForce(body, body.position, scaledForce);
+        if (body.isPlayer) {
+          let player = this.getPlayer(body.socketId);
+          if (player) {
+            player.health -= 10;
+            if (player.health <= 0) {
+              this.removePlayer(body.socketId);
+            }
+          }
+        }
       }
     });
     let newPolygons = [...newStaticBodies, ...nonStaticBodies];
     this.replaceBodies(newPolygons);
   }
 
-  addPlayer() {
-    let body = Bodies.circle(50, 50, 25, { isStatic: false });
-    body.birthTime = Date.now();
-    body.lifespan = 10000;
-    this.addBodyToWorld(body);
+  /**
+   * Get the aplyer associated to a socket id
+   */
+  getPlayer(socketId) {
+    return this.players.find(player => player.socketId === socketId);
+  }
+
+  addPlayer(data, socketId) {
+    console.log("addPlayer.data:", data, "socketId:", socketId);
+    let player = new Player(data.x, data.y, socketId);
+    this.addBodyToWorld(player.composite);
+    this.players.push(player);
+  }
+
+  removePlayer(socketId) {
+    console.log("removePlayer.socketId:", socketId);
+    let player = this.getPlayer(socketId);
+    if (player) this.removeBodyFromWorld(player.composite);
+    this.players = this.players.filter(p => p !== player);
   }
 
   /**
@@ -181,7 +220,7 @@ class Logic {
     body.birthTime = Date.now();
     body.lifespan = 4000;
     body.bomb = true;
-    body.explosionRadius = map(intensity, 0, 1, 50, 150);
+    body.explosionRadius = 200;
     intensity = constrain(intensity, 0, 1);
     let forceVector = Matter.Vector.mult(vector, map(intensity, 0, 1, minForce, maxForce));
     console.log("launchBomb().forceVector:", forceVector);
@@ -212,7 +251,6 @@ class Logic {
    * @param {PolygonBackend[]} polygons - Arreglo de polígonos.
    */
   setTerrain(polygons) {
-    console.log("setTerrain().polygons:", polygons);
     let staticBodies = polygons.map(polygon => polygonToBody(polygon, true));
     // Ajust the terrain to the center of the canvas
     staticBodies.forEach(body => {
@@ -226,6 +264,8 @@ class Logic {
    */
   resetGame() {
     this.removeBodiesFromWorld(this.data.bodies);
+    this.players.forEach(player => this.removeBodyFromWorld(player.composite));
+    this.players = [];
     this.init();
   }
 }

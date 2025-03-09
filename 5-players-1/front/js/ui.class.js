@@ -1,5 +1,5 @@
 class UI {
-  font;
+  static font;
   background;
   cellDimension;
   zoom = 1.0;
@@ -21,21 +21,23 @@ class UI {
   bombVector = null;
   intensity = null;
 
-  constructor(){
+  constructor(socketId){
+    this.socketId = socketId;
+    console.log("ui.socketId:",socketId);
     this.cellDimension = 50;
     this.data = {
       polygons: [],
     };
   }
 
-  preload (){
+  static preload (){
     this.font = loadFont('fonts/Roboto-VariableFont_wdth,wght.ttf');
   }
 
   setup() {
     this.graphicsLayer = createGraphics(width, height);
     this.background = this.createBackground();
-    textFont(this.font);
+    textFont(UI.font);
   }
 
   draw() {        
@@ -51,17 +53,63 @@ class UI {
     this.drawBombVector();
     this.drawCursor()        
     this.drawPolygons();
+    this.drawPlayerIndicator();
+    this.data.players?.forEach(playerEntity => this.drawPlayerHealth(playerEntity));
 
     this.pRelativeMouseX = this.relativeMouseX;
     this.pRelativeMouseY = this.relativeMouseY;
   }
 
+
+  drawPlayerIndicator(){
+    let playerEntity = this.getPlayer();
+    if(!playerEntity) return;
+    console.log("playerEntity:",playerEntity)
+    push();
+    translate(playerEntity.x, playerEntity.y, 0);
+    fill(255, 0, 0,50);
+    ellipse(0, 0, 20, 20);    
+    pop();
+  }
+
+  drawPlayerHealth(playerEntity){
+    push();
+    translate(playerEntity.x, playerEntity.y, 0);
+    //barra de salud
+    let barWidth = 50;
+    let barHeight = 10;
+    let barX = -barWidth / 2;
+    let barY = -40;
+    let barFill = color(0, 255, 0);
+    let barEmpty = color(255, 0, 0);
+    let barValue = map(playerEntity.health, 0, 100, 0, barWidth);
+    fill(barEmpty);
+    rect(barX, barY, barWidth, barHeight);
+    fill(barFill);
+    rect(barX, barY, barValue, barHeight);    
+    pop();
+  }  
+
+  getPlayer() {
+    if(!this.data.players) return;
+    return this.data.players.find(player => player.socketId === this.socketId);
+  }
+
   setData(data) {
     this.setPolygons(data.polygons);
+    this.setPlayers(data.players);
   }
 
   getData(){
     return this.data;
+  }
+
+  setPlayers(playersBackend) {
+    if(!playersBackend) return;
+    this.data.players = playersBackend.map(playerBackend => {
+      let player = new PlayerEntity(playerBackend);
+      return player;
+    });
   }
 
 
@@ -215,14 +263,24 @@ class UI {
 
   keyPressed(key) {    
     if (key === ' ') {
-      let x = ui.getRelativeMouseX();
-      let y = ui.getRelativeMouseY();
-      this.bombStartPos = createVector(x, y);
-      this.bomStartTime = millis();
+      let playerEntity = this.getPlayer();
+      if (playerEntity) {
+        let x = playerEntity.x;
+        let y = playerEntity.y;
+        this.bombStartPos = createVector(x, y);
+        this.bomStartTime = millis();
+      }
     }
 
     if (key === 'r') {
-      sendResetGame();
+      socket.emit('resetGame');
+    }
+
+    if (key === 'Enter') {
+      socket.emit('addPlayer', {
+        x: ui.getRelativeMouseX(),
+        y: ui.getRelativeMouseY()
+      });
     }
   }
 

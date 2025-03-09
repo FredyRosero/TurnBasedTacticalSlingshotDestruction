@@ -2,12 +2,16 @@ let ui;
 let gl;
 
 let simulationData = []; // Aquí se almacenará el estado recibido del servidor
+let socketConnected = false;
 
 socket.on('simulationUpdate', (data) => {
   simulationData = data;
 });
 
-// Si necesitas enviar comandos al servidor:
+function sendAddPolygon(data) {
+  socket.emit('addPolygon', data);
+}
+
 function sendAddPolygon(data) {
   socket.emit('addPolygon', data);
 }
@@ -20,30 +24,31 @@ function sendDoExplosion(data) {
   socket.emit('doExplosion', data);
 }
 
-function sendResetGame() {
-  socket.emit('resetGame');
-}
-
-
-function preload(){  
-  ui = new UI();
-  ui.preload();
+function preload(){   
+  UI.preload();
   Polygon.preload();
 }
 
-
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
+  noLoop(); 
   frameRate(15);
   Polygon.setup();
   gl = this._renderer.GL;
   gl.disable(gl.DEPTH_TEST); 
   gl.enable(gl.BLEND);
-  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-  ui.setup();
+  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);  
+  socket.on('connect', () => {
+    socketConnected = true;
+    console.log('Socket conectado:', socket.id);
+    ui = new UI(socket.id);
+    ui.setup();
+    loop(); 
+  });  
 }
 
 function draw() {  
+  if (!socketConnected) return;
   ui.setData(simulationData);
   drawBase();    
   drawDebug();  
@@ -98,7 +103,7 @@ function mousePressed() {
   let x = ui.getRelativeMouseX();
   let y = ui.getRelativeMouseY();
   //logic.doExplosion(x, y, 100);}
-  sendDoExplosion({
+  socket.emit('doExplosion', {
     x: x,
     y: y,
     radius: 100
