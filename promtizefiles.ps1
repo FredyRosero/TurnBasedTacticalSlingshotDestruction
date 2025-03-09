@@ -27,8 +27,8 @@ Get-ChildItem -Path $Ruta -File -Recurse -Depth 1 | ForEach-Object {
   # Obtener la ruta del archivo relativa al directorio actual
   $RutaRelativa = $_.FullName.Substring($Ruta.Length) 
   # Escribe la línea con la marca requerida
-  Write-OutputContent ('```' + $RutaRelativa)
+  Write-OutputContent ('~~~' + $RutaRelativa)
   # Escribe el contenido del archivo
   Get-Content $_.FullName | ForEach-Object { Write-OutputContent $_ }
-  Write-OutputContent '```'
+  Write-OutputContent '~~~'
 }
