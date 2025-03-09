@@ -1,5 +1,10 @@
 # Client-Server Segregation
+
+In this step we segregate the front-end from the back-end.
+
 ## Front-end
+
+[front](front/)
 
 ```powershell
 python -m http.server
